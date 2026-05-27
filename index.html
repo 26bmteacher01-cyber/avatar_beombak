@@ -1,382 +1,379 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>나의 아바타 프롬프트 생성기</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>나의 아바타 프롬프트 생성기</title>
 
-  <style>
+<style>
 
-    *{
-      box-sizing:border-box;
-      font-family:'Pretendard', sans-serif;
-    }
+*{
+  box-sizing:border-box;
+  font-family:'Pretendard', sans-serif;
+}
 
-    body{
-      margin:0;
-      padding:40px 20px;
-      background:linear-gradient(135deg,#eef2ff,#fdf2f8);
-      color:#222;
-    }
+body{
+  margin:0;
+  padding:40px 20px;
+  background:linear-gradient(135deg,#eef2ff,#fdf2f8);
+  color:#222;
+}
 
-    .container{
-      max-width:1000px;
-      margin:auto;
-      background:white;
-      border-radius:28px;
-      padding:40px;
-      box-shadow:0 10px 30px rgba(0,0,0,0.1);
-    }
+.container{
+  max-width:1000px;
+  margin:auto;
+  background:white;
+  border-radius:28px;
+  padding:40px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
 
-    h1{
-      text-align:center;
-      font-size:2.2rem;
-      margin-bottom:10px;
-    }
+h1{
+  text-align:center;
+  font-size:2.2rem;
+  margin-bottom:10px;
+}
 
-    .subtitle{
-      text-align:center;
-      color:#666;
-      margin-bottom:35px;
-      line-height:1.6;
-    }
+.subtitle{
+  text-align:center;
+  color:#666;
+  margin-bottom:35px;
+  line-height:1.7;
+}
 
-    .section-title{
-      margin-top:35px;
-      margin-bottom:18px;
-      font-size:1.25rem;
-      font-weight:700;
-      color:#6366f1;
-    }
+.section-title{
+  margin-top:35px;
+  margin-bottom:18px;
+  font-size:1.3rem;
+  font-weight:700;
+  color:#6366f1;
+}
 
-    .grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:20px;
-    }
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
 
-    .card{
-      background:#f8fafc;
-      padding:18px;
-      border-radius:18px;
-    }
+.card{
+  background:#f8fafc;
+  padding:18px;
+  border-radius:18px;
+}
 
-    label{
-      display:block;
-      margin-bottom:8px;
-      font-weight:700;
-    }
+.full{
+  grid-column:1 / -1;
+}
 
-    input,
-    select,
-    textarea{
-      width:100%;
-      padding:12px;
-      border-radius:12px;
-      border:1px solid #d1d5db;
-      font-size:15px;
-    }
+label{
+  display:block;
+  margin-bottom:8px;
+  font-weight:700;
+}
 
-    textarea{
-      resize:vertical;
-      min-height:90px;
-    }
+input,
+select,
+textarea{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #d1d5db;
+  font-size:15px;
+}
 
-    .full{
-      grid-column:1 / -1;
-    }
+textarea{
+  resize:vertical;
+  min-height:100px;
+}
 
-    .button-area{
-      text-align:center;
-      margin-top:35px;
-    }
+.checkbox-group{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:10px;
+}
 
-    button{
-      border:none;
-      padding:15px 24px;
-      border-radius:16px;
-      font-size:16px;
-      font-weight:700;
-      cursor:pointer;
-      margin:5px;
-      transition:0.2s;
-    }
+.checkbox-group label{
+  background:white;
+  border:1px solid #d1d5db;
+  border-radius:999px;
+  padding:10px 14px;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:500;
+}
 
-    button:hover{
-      transform:translateY(-2px);
-    }
+.button-area{
+  text-align:center;
+  margin-top:35px;
+}
 
-    .generate-btn{
-      background:#6366f1;
-      color:white;
-    }
+button{
+  border:none;
+  padding:15px 24px;
+  border-radius:16px;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  margin:5px;
+  transition:0.2s;
+}
 
-    .copy-btn{
-      background:#ec4899;
-      color:white;
-    }
+button:hover{
+  transform:translateY(-2px);
+}
 
-    #result{
-      margin-top:30px;
-      min-height:320px;
-      background:#fafafa;
-      line-height:1.7;
-    }
+.generate-btn{
+  background:#6366f1;
+  color:white;
+}
 
-    .tip{
-      margin-top:20px;
-      background:#fef3c7;
-      color:#92400e;
-      padding:18px;
-      border-radius:16px;
-      line-height:1.7;
-      font-size:14px;
-    }
+.copy-btn{
+  background:#ec4899;
+  color:white;
+}
 
-    @media(max-width:800px){
+#result{
+  margin-top:30px;
+  min-height:350px;
+  background:#fafafa;
+  line-height:1.8;
+}
 
-      .grid{
-        grid-template-columns:1fr;
-      }
+.tip{
+  margin-top:20px;
+  background:#fef3c7;
+  color:#92400e;
+  padding:18px;
+  border-radius:16px;
+  line-height:1.7;
+  font-size:14px;
+}
 
-      .full{
-        grid-column:auto;
-      }
+@media(max-width:800px){
 
-    }
+  .grid{
+    grid-template-columns:1fr;
+  }
 
-  </style>
+  .full{
+    grid-column:auto;
+  }
+
+}
+
+</style>
 
 </head>
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <h1>✨ 나의 아바타 만들기</h1>
+  <h1>✨ 나의 아바타 프롬프트 생성기</h1>
 
-    <p class="subtitle">
-      나의 신체 특징과 분위기를 입력하고<br>
-      AI 아바타 프롬프트를 만들어보세요!
-    </p>
+  <p class="subtitle">
+    나의 신체 특징과 분위기를 입력하고<br>
+    AI 아바타 생성용 프롬프트를 만들어보세요!
+  </p>
 
-    <div class="section-title">👤 나의 신체 특징</div>
+  <div class="section-title">👤 나의 신체 특징</div>
 
-    <div class="grid">
+  <div class="grid">
 
-      <div class="card">
-        <label>성별</label>
-        <select id="gender">
-          <option>여</option>
-          <option>남</option>
-        </select>
-      </div>
-
-      <div class="card">
-        <label>얼굴형</label>
-        <select id="faceShape">
-          <option>둥근형</option>
-          <option>각진형</option>
-          <option>긴형</option>
-        </select>
-      </div>
-
-      <div class="card">
-        <label>얼굴 길이</label>
-        <select id="faceLength">
-          <option>긴 편</option>
-          <option>짧은 편</option>
-        </select>
-      </div>
-
-      <div class="card">
-        <label>피부톤</label>
-        <select id="skinTone">
-          <option>아주 밝음</option>
-          <option>밝은 편</option>
-          <option>보통</option>
-          <option>어두운 편</option>
-          <option>아주 어두운 편</option>
-        </select>
-      </div>
-
-      <div class="card">
-        <label>키 (cm)</label>
-        <input type="number" id="height" placeholder="예: 160">
-      </div>
-
-      <div class="card">
-        <label>몸무게 (kg)</label>
-        <input type="number" id="weight" placeholder="예: 50">
-      </div>
-
-      <div class="card">
-        <label>목 길이</label>
-        <select id="neck">
-          <option>짧은 편</option>
-          <option>보통</option>
-          <option>긴 편</option>
-        </select>
-      </div>
-
-      <div class="card">
-        <label>다리 길이</label>
-        <select id="leg">
-          <option>짧은 편</option>
-          <option>보통</option>
-          <option>긴 편</option>
-        </select>
-      </div>
-
-      <div class="card full">
-        <label>머리스타일</label>
-        <input type="text" id="hair" placeholder="예: 단발머리, 쉼표머리, 웨이브 긴머리">
-      </div>
-
+    <div class="card">
+      <label>나이</label>
+      <input type="text" id="age" value="한국나이 14세">
     </div>
 
-    <div class="section-title">✨ 나의 분위기</div>
-
-    <div class="grid">
-
-      <div class="card">
-        <label>내 체형의 장점</label>
-        <textarea id="strength" placeholder="예: 다리가 긴 편이다"></textarea>
-      </div>
-
-      <div class="card">
-        <label>보완하고 싶은 부분</label>
-        <textarea id="weakness" placeholder="예: 어깨가 좁아 보인다"></textarea>
-      </div>
-
-      <div class="card">
-        <label>나를 표현하는 분위기</label>
-        <select id="mood">
-          <option>차분한</option>
-          <option>활동적인</option>
-          <option>귀여운</option>
-          <option>깔끔한</option>
-          <option>편안한</option>
-          <option>세련된</option>
-        </select>
-      </div>
-
+    <div class="card">
+      <label>성별</label>
+      <select id="gender">
+        <option>여</option>
+        <option>남</option>
+      </select>
     </div>
 
-    <div class="button-area">
-
-      <button class="generate-btn" onclick="generatePrompt()">
-        ✨ 프롬프트 생성하기
-      </button>
-
-      <button class="copy-btn" onclick="copyPrompt()">
-        📋 복사하기
-      </button>
-
+    <div class="card">
+      <label>얼굴형</label>
+      <select id="faceShape">
+        <option>둥근형</option>
+        <option>세로로 긴 형</option>
+        <option>각진형</option>
+        <option>역삼각형</option>
+        <option>계란형</option>
+      </select>
     </div>
 
-    <textarea id="result" placeholder="여기에 AI 아바타 프롬프트가 생성됩니다."></textarea>
+    <div class="card">
+      <label>체형</label>
+      <select id="bodyType">
+        <option>마른 체형</option>
+        <option>통통한 체형</option>
+        <option>상체가 통통한 체형</option>
+        <option>하체가 통통한 체형</option>
+        <option>근육질 체형</option>
+        <option>보통인 편</option>
+      </select>
+    </div>
 
-    <div class="tip">
-      💡 얼굴 눈·코·입 없이 단순화된 아바타가 생성되도록 설정되어 있습니다.<br>
-      앞/옆/뒤 모습과 흰 배경이 자동 반영됩니다.
+    <div class="card">
+      <label>피부톤</label>
+      <select id="skinTone">
+        <option>매우 어두운 편</option>
+        <option>어두운 편</option>
+        <option>보통</option>
+        <option>밝은 편</option>
+        <option>매우 밝은 편</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <label>머리스타일</label>
+      <input type="text" id="hair" placeholder="예: 단발머리, 웨이브 긴머리">
     </div>
 
   </div>
 
-  <script>
+  <div class="section-title">✨ 나의 분위기</div>
 
-    function generatePrompt(){
+  <div class="grid">
 
-      const gender = document.getElementById('gender').value;
-      const faceShape = document.getElementById('faceShape').value;
-      const faceLength = document.getElementById('faceLength').value;
-      const skinTone = document.getElementById('skinTone').value;
-      const height = document.getElementById('height').value;
-      const weight = document.getElementById('weight').value;
-      const neck = document.getElementById('neck').value;
-      const leg = document.getElementById('leg').value;
-      const hair = document.getElementById('hair').value;
+    <div class="card full">
+      <label>내가 의복을 통해 강조하고 싶은 내 체형의 특징</label>
+      <textarea id="strength"></textarea>
+    </div>
 
-      const strength = document.getElementById('strength').value;
-      const weakness = document.getElementById('weakness').value;
-      const mood = document.getElementById('mood').value;
+    <div class="card full">
+      <label>내가 의복을 통해 보완하고 싶은 내 체형의 특징</label>
+      <textarea id="weakness"></textarea>
+    </div>
 
-      const genderText = gender === "여"
-      ? "Korean middle school girl"
-      : "Korean middle school boy";
+    <div class="card full">
 
-      const prompt = `
-${genderText},
+      <label>나를 표현하는 분위기 (최대 3개 선택)</label>
 
-avatar character sheet,
-front view, side view, back view,
+      <div class="checkbox-group">
 
-full body avatar,
-realistic illustration,
-natural body proportions,
-not anime,
-not cartoon,
+        <label><input type="checkbox" name="mood" value="편안한"> 편안한</label>
+        <label><input type="checkbox" name="mood" value="차분한"> 차분한</label>
+        <label><input type="checkbox" name="mood" value="활동적인"> 활동적인</label>
+        <label><input type="checkbox" name="mood" value="깔끔한"> 깔끔한</label>
+        <label><input type="checkbox" name="mood" value="귀여운"> 귀여운</label>
+        <label><input type="checkbox" name="mood" value="자유로운"> 자유로운</label>
+        <label><input type="checkbox" name="mood" value="세련된"> 세련된</label>
+        <label><input type="checkbox" name="mood" value="우아한"> 우아한</label>
+        <label><input type="checkbox" name="mood" value="친근한"> 친근한</label>
 
-faceless avatar,
-no eyes,
-no nose,
-no mouth,
-minimal face details,
-simple blank face,
+      </div>
 
-white background,
-clean background,
-empty background,
+    </div>
 
-no text,
-no Japanese text,
-no Korean text,
-no symbols,
+  </div>
 
-face shape: ${faceShape},
-face length: ${faceLength},
-skin tone: ${skinTone},
-height: ${height}cm,
-weight: ${weight}kg,
-neck length: ${neck},
-leg length: ${leg},
-hair style: ${hair},
+  <div class="button-area">
 
-body strengths: ${strength},
-areas to balance: ${weakness},
+    <button class="generate-btn" onclick="generatePrompt()">
+      ✨ 프롬프트 생성하기
+    </button>
 
-mood: ${mood},
+    <button class="copy-btn" onclick="copyPrompt()">
+      📋 복사하기
+    </button>
 
-wearing a plain short sleeve t-shirt,
-wearing knee-length pants,
-simple casual student look,
-no backpack,
+  </div>
 
-standing naturally,
-soft lighting,
-clean aesthetic composition,
-realistic student proportions
-      `.trim();
+  <textarea id="result" placeholder="여기에 AI 아바타 프롬프트가 생성됩니다."></textarea>
 
-      document.getElementById('result').value = prompt;
+  <div class="tip">
+    💡 얼굴 눈·코·입 없이 단순화된 아바타가 생성되도록 설정되어 있습니다.
+  </div>
 
-    }
+</div>
 
-    function copyPrompt(){
+<script>
 
-      const result = document.getElementById('result');
+function generatePrompt(){
 
-      result.select();
-      result.setSelectionRange(0,99999);
+  const age = document.getElementById('age').value;
+  const gender = document.getElementById('gender').value;
+  const faceShape = document.getElementById('faceShape').value;
+  const bodyType = document.getElementById('bodyType').value;
+  const skinTone = document.getElementById('skinTone').value;
+  const hair = document.getElementById('hair').value;
 
-      navigator.clipboard.writeText(result.value);
+  const strength = document.getElementById('strength').value;
+  const weakness = document.getElementById('weakness').value;
 
-      alert("프롬프트가 복사되었습니다! 🎉");
+  const moods = [];
+  document.querySelectorAll('input[name="mood"]:checked').forEach((checkbox) => {
+    moods.push(checkbox.value);
+  });
 
-    }
+  if(moods.length > 3){
+    alert("분위기는 최대 3개까지 선택할 수 있습니다!");
+    return;
+  }
 
-  </script>
+  const prompt = `
+${age} 한국 중학생 ${gender},
+
+앞모습, 옆모습, 뒷모습이 함께 보이는 아바타 캐릭터 시트,
+
+실제 사람 비율,
+자연스러운 체형 표현,
+애니메이션 스타일 아님,
+카툰 스타일 아님,
+
+눈, 코, 입 없는 얼굴,
+이목구비 없는 단순한 얼굴,
+미니멀한 얼굴 표현,
+
+흰색 배경,
+깔끔한 배경,
+글자 없음,
+일본어 없음,
+한글 없음,
+기호 없음,
+
+얼굴형: ${faceShape},
+체형: ${bodyType},
+피부톤: ${skinTone},
+머리스타일: ${hair},
+
+의복을 통해 강조하고 싶은 특징: ${strength},
+의복을 통해 보완하고 싶은 특징: ${weakness},
+
+분위기: ${moods.join(", ")},
+
+반팔 티셔츠 착용,
+무릎까지 오는 바지 착용,
+가방 없음,
+
+자연스럽게 서 있는 자세,
+부드러운 조명,
+깔끔한 구성,
+학생 느낌의 자연스러운 아바타
+  `.trim();
+
+  document.getElementById('result').value = prompt;
+
+}
+
+function copyPrompt(){
+
+  const result = document.getElementById('result');
+
+  result.select();
+  result.setSelectionRange(0,99999);
+
+  navigator.clipboard.writeText(result.value);
+
+  alert("프롬프트가 복사되었습니다! 🎉");
+
+}
+
+</script>
 
 </body>
 </html>
